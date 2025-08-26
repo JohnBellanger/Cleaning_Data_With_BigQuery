@@ -104,12 +104,12 @@ SELECT transaction_id,
        session_id,
        customer_id,
        Case 
-            When Initcap(product_category) = 'Vetements' THEN 'Vêtements'
-            When Lower(product_category) = 'accessoires' THEN 'Accessoires'
-            When Lower(product_category) = 'beauté' THEN 'Beauté'
-            When Lower(product_category) in ('électronique','electronique') THEN 'Électronique'
-            When Lower(product_category) = 'maison' THEN 'Maison'
-            When Lower(product_category) = 'livres' THEN 'Livres'
+            When Initcap(product_category) = 'Vetements' THEN 'Clothing'
+            When Lower(product_category) = 'accessoires' THEN 'Accessories'
+            When Lower(product_category) = 'beauté' THEN 'Beauty'
+            When Lower(product_category) in ('électronique','electronique') THEN 'Electronics'
+            When Lower(product_category) = 'maison' THEN 'House'
+            When Lower(product_category) = 'livres' THEN 'Books'
           Else product_category
         END AS product_category,
        quantity,

@@ -9,7 +9,7 @@ I have lifetime access to the training of **Yomi Denzel**, the leader in Europea
 ## Skills & Tools
 
   * **Languages:** R, SQL
-  * **Tools & Platforms:** Google BigQuery, Google Analytics, Looker Studio, RStudio, Google Slides, Google Docs, Google Sheets
+  * **Tools & Platforms:** Google BigQuery, Google Analytics, Google Search Console, Looker Studio, RStudio, Google Slides, Google Docs, Google Sheets
   * **Areas of Expertise:** Data Cleaning, Marketing Data Analysis, Predictive Analysis, Sentiment Analysis, E-commerce.
 
 ## Certifications

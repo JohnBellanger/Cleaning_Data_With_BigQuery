@@ -1,7 +1,3 @@
-Of course, here is the full translation of your GitHub README in English.
-
------
-
 # John Bellanger's Data Analysis Portfolio
 
 ## About Me

@@ -27,7 +27,7 @@ Here is a selection of projects that showcase my skills.
 
   * **Description:** This project focuses on the crucial step of data preparation. It involves using SQL queries in Google BigQuery to clean, transform, and structure raw datasets from Facebook Ads and Google Ads campaigns, making them ready for in-depth analysis.
   * **Files:** `Project_Facebook_Ads.sql`, `Project_Google_Ads_1.sql`, `Project_Google_Ads_2.sql`
-  * **Project Summary:** [Link to a detailed project summary](https://cloud.google.com/bigquery/docs/introduction)
+  * **Project Summary:** [Link to a detailed project summary]([https://cloud.google.com/bigquery/docs/introduction](https://github.com/JohnBellanger/Cleaning_Data_With_BigQuery/blob/main/Project_Facebook_Ads.sql))
 
 -----
 
@@ -37,17 +37,17 @@ Here is a selection of projects that showcase my skills.
 
   * **Description:** Using predictive models in R to analyze advertising data and identify risk factors for back pain, in order to refine the targeting of health campaigns.
   * **Files:** `Project_Back_Pain_Ads_Prediction.R`, `Project_Back_Pain_Comment_Analysis.R`
-  * **Project Summary:** [Link to a detailed project summary](https://jmai.amegroups.org/article/view/6003/html)
+  * **Project Summary:** [Link to a detailed project summary]([https://jmai.amegroups.org/article/view/6003/html](https://github.com/JohnBellanger/R_Programming/blob/main/Project_Back_Pain_Ads_Prediction.R))
 
 #### b. Comprehensive Google Ads Campaign Analysis
 
   * **Description:** A series of analyses (descriptive, diagnostic, and predictive) to break down Google Ads campaign performance, understand the causes behind the results, and forecast future trends to optimize spending.
   * **Files:** `Project_Google_Ads_Descriptive_Analysis.R`, `Project_Google_Ads_Diagnostic_Analysis.R`, `Project_Google_Ads_Prediction.R`
-  * **Project Summary:** [Link to a detailed project summary](https://support.google.com/google-ads/answer/12327514)
+  * **Project Summary:** [Link to a detailed project summary]([https://support.google.com/google-ads/answer/12327514](https://github.com/JohnBellanger/R_Programming/blob/main/Project_Google_Ads_Descriptive_Analysis.R))
 
 #### c. Sentiment Analysis: Netflix & "The Tinder Swindler"
 
   * **Description:** Analysis of viewer sentiment on the Netflix documentary "The Tinder Swindler". This project uses Natural Language Processing (NLP) to assess public perception and dominant themes in online discussions.
   * **File:** `Project_Netflix_Sentiment_Analysis.R`
-  * **Project Summary:** [Link to a detailed project summary](https://www.google.com/search?q=https://towardsdatascience.com/a-beginners-guide-to-sentiment-analysis-with-r-cd8a74ba545)
+  * **Project Summary:** [Link to a detailed project summary]([https://www.google.com/search?q=https://towardsdatascience.com/a-beginners-guide-to-sentiment-analysis-with-r-cd8a74ba545](https://github.com/JohnBellanger/R_Programming/blob/main/Project_NetFlix_Sentiment_Analysis.R))
 

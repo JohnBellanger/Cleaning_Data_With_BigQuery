@@ -27,7 +27,7 @@ Here is a selection of projects that showcase my skills.
 
   * **Description:** This project focuses on the crucial step of data preparation. It involves using SQL queries in Google BigQuery to clean, transform, and structure raw datasets from Facebook Ads and Google Ads campaigns, making them ready for in-depth analysis.
   * **Files:** `Project_Facebook_Ads.sql`, `Project_Google_Ads_1.sql`, `Project_Google_Ads_2.sql`
-  * **Project Summary:** [Link to a detailed project summary]([https://cloud.google.com/bigquery/docs/introduction](https://github.com/JohnBellanger/Cleaning_Data_With_BigQuery/blob/main/Project_Facebook_Ads.sql))
+  * **Project Summary:** [Link to a detailed project summary][https://cloud.google.com/bigquery/docs/introduction](https://github.com/JohnBellanger/Cleaning_Data_With_BigQuery/blob/main/Project_Facebook_Ads.sql)
 
 -----
 

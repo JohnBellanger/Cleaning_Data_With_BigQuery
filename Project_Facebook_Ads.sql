@@ -177,7 +177,7 @@ END AS session_source_medium,
 
   SAFE_CAST(conversions_ga4 AS Int64) AS conversions_ga4,
 
-  SAFE_CAST(total_revenue AS FLOAT64) AS total_revenue,
+  SAFE_CAST(total_revenue AS NUMERIC) AS total_revenue,
 
   CASE
     WHEN UPPER(country) IN ('FRANCE', 'FR') THEN 'France'
@@ -245,7 +245,7 @@ SELECT *
 FROM `marketing-464513.ECommerce.Google_Analytics_4_copy_Backup`
 ;
 
--- Step 15: No need to delete rows or colulmn because evrything is usefull
+-- Step 15: No need to delete rows or colulmn because everything is usefull
 
 CREATE OR REPLACE TABLE `marketing-464513.ECommerce.Google_Analytics_4_copy_Backup` AS
 SELECT

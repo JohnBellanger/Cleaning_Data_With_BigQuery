@@ -184,7 +184,7 @@ SELECT transaction_id,
        customer_id,
        product_category,
        SAFE_CAST(quantity AS INT64) AS quantity,
-       SAFE_CAST(revenue AS FLOAT64) AS revenue,
+       SAFE_CAST(revenue AS NUMERIC) AS revenue,
        payment_method,
        transaction_date 
  FROM `marketing-464513.Google_Ads.Google_Analytics_Copy`);

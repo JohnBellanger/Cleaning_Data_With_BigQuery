@@ -402,5 +402,109 @@ ORDER BY Revenue_net DESC
 SELECT sum(Revenue) AS Total_Revenue, sum(Refund_Amount) AS Total_Refund, sum(Revenue) - sum(Refund_Amount) AS Revenue_net, Round(sum(Refund_Amount) / sum(Revenue) * 100,2) AS Percent_lost
 FROM `marketing-464513.Finance.Sales_Backup`
 
+# Phase 7: Aggregation before join table
 
+# Step 1: Aggregation for Marketing
+
+CREATE OR REPLACE TABLE `marketing-464513.Finance.Marketing_Backup` AS
+SELECT  Date,
+        Marketing_Source,         
+        sum(Ad_Spend) AS Total_Ad_Spend, 
+        sum(Impressions) AS Total_Impression, 
+        sum(Clicks) AS Total_Clicks
+FROM `marketing-464513.Finance.Marketing_Duplicata`
+GROUP BY Date, Marketing_Source
+;
+
+# Step 2: Aggregation for Sales
+
+CREATE OR REPLACE TABLE `marketing-464513.Finance.Sales_Backup` AS
+
+SELECT  count(DISTINCT(Transaction_ID)) AS Number_Order,
+        Date,
+        Traffic_Source,
+        sum(Revenue) AS Total_Revenue,
+        sum(Refund_Amount) AS Total_Refund
+FROM `marketing-464513.Finance.Sales_Backup`
+GROUP BY Date, Traffic_Source
+;
+
+# Phase 8: Creation of flat table
+
+CREATE OR REPLACE TABLE `marketing-464513.Finance.Sales_Flat_table_Daily` AS
+
+SELECT  Coalesce(m.Date,s.Date) AS Date, 
+        Coalesce(m.Marketing_Source, s.Traffic_Source) AS Traffic_Source,
+        IFNULL(m.Total_Ad_Spend, 0) AS Total_Ad_Spend,
+        IFNULL(m.Total_Impression,0) AS Total_Impression,
+        IFNULL(m.Total_Clicks,0) AS Total_Clicks,
+        IFNULL(s.Number_Order, 0) AS Number_Order,
+        IFNULL(s.Total_Revenue, 0) AS Total_Revenue,
+        IFNULL(s.Total_Refund, 0) AS Total_Refund
+FROM  `marketing-464513.Finance.Marketing_Backup` m
+FULL OUTER JOIN `marketing-464513.Finance.Sales_Backup` s
+ON m.Date = s.Date
+AND m.Marketing_Source = s.Traffic_Source
+        
+# Checking Flat table
+
+SELECT *
+FROM `marketing-464513.Finance.Sales_Flat_table_Daily`
+;
+
+# Phase 8: DEBUG
+
+# Step 1: I count the row - 174 rows ok
+
+
+SELECT COUNT(*) AS Total_row,
+        COUNT(DISTINCT(Date)) AS unique_Date,
+        COUNT(DISTINCT(Traffic_Source)) AS unique_Traffic_Source,
+        COUNT(DISTINCT(Total_Ad_Spend)) AS unique_Total_Ad_Spend,
+        COUNT(DISTINCT(Total_Impression)) AS unique_Total_Impression,
+        COUNT(DISTINCT(Total_Clicks)) AS unique_Total_Clicks,
+        COUNT(DISTINCT(Number_Order)) AS unique_Number_Order,
+        COUNT(DISTINCT(Total_Revenue)) AS unique_Total_Revenue,
+        COUNT(DISTINCT(Total_Refund)) AS unique_Total_Refund,
+FROM `marketing-464513.Finance.Sales_Flat_table_Daily`
+;
+
+# Step 2: Date - Period ok
+
+SELECT MIN(Date) AS Min_date, MAX(Date) AS Max_date
+FROM `marketing-464513.Finance.Sales_Flat_table_Daily`
+;
+
+# Step 3: Numbers - ok
+
+SELECT 
+        COUNTIF(Date IS NULL) AS NULL_Date,
+        COUNTIF(Traffic_Source IS NULL) AS NULL_Traffic_Source,
+        COUNTIF(Total_Ad_Spend IS NULL) AS NULL_Total_Ad_Spend,
+        COUNTIF(Total_Impression IS NULL) AS NULL_Total_Impression,
+        COUNTIF(Total_Clicks IS NULL) AS NULL_Total_Clicks,
+        COUNTIF(Number_Order IS NULL) AS NULL_Number_Order,
+        COUNTIF(Total_Revenue IS NULL) AS NULL_Total_Revenue,
+        COUNTIF(Total_Refund IS NULL) AS NULL_Total_Refund,
+FROM `marketing-464513.Finance.Sales_Flat_table_Daily`
+;
+
+# Step 4: Null - ok
+SELECT
+        COUNTIF(Date IS NULL) AS NULL_Date,
+        COUNTIF(Traffic_Source IS NULL) AS NULL_Traffic_Source,
+        COUNTIF(Total_Ad_Spend IS NULL) AS NULL_Total_Ad_Spend,
+        COUNTIF(Total_Impression IS NULL) AS NULL_Total_Impression,
+        COUNTIF(Total_Clicks IS NULL) AS NULL_Total_Clicks,
+        COUNTIF(Number_Order IS NULL) AS NULL_Number_Order,
+        COUNTIF(Total_Revenue IS NULL) AS NULL_Total_Revenue,
+        COUNTIF(Total_Refund IS NULL) AS NULL_Total_Refund,
+FROM `marketing-464513.Finance.Sales_Flat_table_Daily`
+;
+
+# Phase 9: Export Flat table to R_Programming 
+
+SELECT *
+FROM `marketing-464513.Finance.Sales_Flat_table_Daily`
+;
 

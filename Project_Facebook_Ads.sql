@@ -124,7 +124,8 @@ SELECT
       country, 
       city
 FROM `marketing-464513.ECommerce.Google_Analytics_4_copy_Backup`
-WHERE SAFE.PARSE_DATE('%d/%m-%Y',date) IS NOT NULL AND SAFE.PARSE_DATE('%Y-%m-%d',date) IS NULL
+WHERE SAFE.PARSE_DATE('%d/%m-%Y',date) IS NOT NULL 
+ AND  SAFE.PARSE_DATE('%Y-%m-%d',date) IS NULL
 ;
 
 

@@ -200,7 +200,7 @@ FROM `marketing-464513`.`ECommerce`.`Google_Analytics_4_copy_Backup`;
 -- Found where are the NULL / Blank
 SELECT * -- Nothing
 FROM `marketing-464513`.`ECommerce`.`Google_Analytics_4_copy_Backup`
-WHERE 'date' IS NULL OR 'date' = '';
+WHERE date IS NULL OR date = '';
 
 SELECT * -- Nothing
 FROM `marketing-464513`.`ECommerce`.`Google_Analytics_4_copy_Backup`

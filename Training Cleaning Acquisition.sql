@@ -781,3 +781,6 @@ FROM `marketing-464513.Training.Acquisition_copy_duplicata`
 
 -- Step 7: End
 
+SELECT *
+FROM `marketing-464513.Training.Acquisition_copy_duplicata`
+;

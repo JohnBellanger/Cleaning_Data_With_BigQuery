@@ -114,99 +114,25 @@ FROM `marketing-464513.Training.Acquisition_copy_duplicata`
 
 CREATE OR REPLACE TABLE `marketing-464513.Training.Acquisition_copy_duplicata` AS
 
-    SELECT
-          PARSE_DATE('%Y/%m/%d', raw_date) AS raw_date,
-          session_id,
-          traffic_source,
-          traffic_medium,
-          campaign_name,
-          country_geo,
-          device_category,
-          ad_impressions,
-          ad_clicks,
-          ad_spend
-           
-    FROM  `marketing-464513.Training.Acquisition_copy_duplicata`
-    WHERE SAFE.PARSE_DATE('%Y/%m/%d', raw_date) IS NOT NULL
-
-    UNION ALL
-
-    SELECT
-          PARSE_DATE('%Y.%m.%d', raw_date) AS raw_date,
-          session_id,
-          traffic_source,
-          traffic_medium,
-          campaign_name,
-          country_geo,
-          device_category,
-          ad_impressions,
-          ad_clicks,
-          ad_spend
-           
-    FROM  `marketing-464513.Training.Acquisition_copy_duplicata`
-    WHERE SAFE.PARSE_DATE('%Y.%m.%d', raw_date) IS NOT NULL 
-      AND SAFE.PARSE_DATE('%Y/%m/%d', raw_date) IS NULL
-
-    UNION ALL
-
-    SELECT
-          PARSE_DATE('%d-%m-%Y', raw_date) AS raw_date,
-          session_id,
-          traffic_source,
-          traffic_medium,
-          campaign_name,
-          country_geo,
-          device_category,
-          ad_impressions,
-          ad_clicks,
-          ad_spend
-           
-    FROM  `marketing-464513.Training.Acquisition_copy_duplicata`
-    WHERE SAFE.PARSE_DATE('%d-%m-%Y', raw_date) IS NOT NULL 
-      AND SAFE.PARSE_DATE('%Y.%m.%d', raw_date) IS NULL 
-      AND SAFE.PARSE_DATE('%Y/%m/%d', raw_date) IS NULL
-
-    UNION ALL
-
-    SELECT
-          PARSE_DATE('%m-%d-%Y', raw_date) AS raw_date,
-          session_id,
-          traffic_source,
-          traffic_medium,
-          campaign_name,
-          country_geo,
-          device_category,
-          ad_impressions,
-          ad_clicks,
-          ad_spend
-          
-    FROM  `marketing-464513.Training.Acquisition_copy_duplicata`
-    WHERE SAFE.PARSE_DATE('%m-%d-%Y', raw_date) IS NOT NULL 
-      AND SAFE.PARSE_DATE('%d-%m-%Y', raw_date) IS NULL 
-      AND SAFE.PARSE_DATE('%Y.%m.%d', raw_date) IS NULL 
-      AND SAFE.PARSE_DATE('%Y/%m/%d', raw_date) IS NULL 
-
-    UNION ALL
-
-    SELECT
-          PARSE_DATE('%Y-%m-%d', raw_date) AS raw_date,
-          session_id,
-          traffic_source,
-          traffic_medium,
-          campaign_name,
-          country_geo,
-          device_category,
-          ad_impressions,
-          ad_clicks,
-          ad_spend
-           
-    FROM  `marketing-464513.Training.Acquisition_copy_duplicata`
-    WHERE SAFE.PARSE_DATE('%Y-%m-%d', raw_date) IS NOT NULL 
-      AND SAFE.PARSE_DATE('%m-%d-%Y', raw_date) IS NULL 
-      AND SAFE.PARSE_DATE('%d-%m-%Y', raw_date) IS NULL 
-      AND SAFE.PARSE_DATE('%Y.%m.%d', raw_date) IS NULL 
-      AND SAFE.PARSE_DATE('%Y/%m/%d', raw_date) IS NULL
-;
+SELECT
+    COALESCE(
+        SAFE.PARSE_DATE('%Y/%m/%d', raw_date),
+        SAFE.PARSE_DATE('%Y.%m.%d', raw_date),
+        SAFE.PARSE_DATE('%d-%m-%Y', raw_date),
+        SAFE.PARSE_DATE('%m-%d-%Y', raw_date),
+        SAFE.PARSE_DATE('%Y-%m-%d', raw_date)
+    ) AS date,
+    session_id,
+    traffic_source,
+    traffic_medium,
+    campaign_name,
+    country_geo,
+    device_category,
+    ad_impressions,
+    ad_clicks,
+    ad_spend
+FROM `marketing-464513.Training.Acquisition_copy_duplicata`
+ ;
 
 -- Step 3: Checking
 

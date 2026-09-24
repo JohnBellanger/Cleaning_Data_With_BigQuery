@@ -136,7 +136,7 @@ FROM `marketing-464513.Training.Acquisition_copy_duplicata`
 
 -- Step 3: Checking
 
-SELECT Raw_date
+SELECT date
 FROM `marketing-464513.Training.Acquisition_copy_duplicata`
 ;
 

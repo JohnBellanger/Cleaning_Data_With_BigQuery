@@ -705,14 +705,14 @@ FROM `marketing-464513.Training.Acquisition_copy_duplicata`
 
 SELECT
       COUNT(*) AS total_row,
-      COUNT(DISTINCT traffic_source) AS unique_traffic_source,
-      COUNT(DISTINCT traffic_medium) AS unique_traffic_medium,
-      COUNT(DISTINCT campaign_name) AS unique_campaign_name,
-      COUNT(DISTINCT country_geo) AS unique_country_geo,
-      COUNT(DISTINCT device_category) AS unique_device_category,
-      COUNT(DISTINCT ad_impressions) AS unique_ad_impressions,
-      COUNT(DISTINCT ad_clicks) AS unique_ad_clicks,
-      COUNT(DISTINCT ad_spend) AS unique_ad_spend
+      COUNT(traffic_source) AS unique_traffic_source,
+      COUNT(traffic_medium) AS unique_traffic_medium,
+      COUNT(campaign_name) AS unique_campaign_name,
+      COUNT(country_geo) AS unique_country_geo,
+      COUNT(device_category) AS unique_device_category,
+      COUNT(ad_impressions) AS unique_ad_impressions,
+      COUNT(ad_clicks) AS unique_ad_clicks,
+      COUNT(ad_spend) AS unique_ad_spend
 FROM `marketing-464513.Training.Acquisition_copy_duplicata`
 ;
 

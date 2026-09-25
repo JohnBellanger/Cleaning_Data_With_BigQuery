@@ -445,94 +445,93 @@ CREATE OR REPLACE TABLE `marketing-464513.Training.Acquisition_copy_duplicata` A
 
 -- Step 1: Checking 'date' OK
 
-SELECT date, COUNT(*) AS  total_rows
+SELECT date, COUNT(*) AS  total_missing_date
 FROM `marketing-464513.Training.Acquisition_copy_duplicata`
 WHERE date IS NULL 
 OR CAST(date AS STRING) = ''
 GROUP BY date
-ORDER BY total_rows DESC
+ORDER BY total_missing_date DESC
 ;
-
 
 -- Step 2: Checking session_id OK
 
-SELECT session_id, COUNT(*) AS total_rows 
+SELECT session_id, COUNT(*) AS total_missing_session_id
 FROM `marketing-464513.Training.Acquisition_copy_duplicata`
 WHERE session_id IS NULL 
 GROUP BY session_id
-ORDER BY total_rows DESC
+ORDER BY total_missing_session_id DESC
 ;
 
 -- Step 3: Checking traffic_source OK
 
-SELECT traffic_source, COUNT(*) AS total_rows
+SELECT traffic_source, COUNT(*) AS total_missing_traffic_source
 FROM `marketing-464513.Training.Acquisition_copy_duplicata`
 WHERE traffic_source IS NULL 
 GROUP BY traffic_source
-ORDER BY total_rows DESC
+ORDER BY total_missing_traffic_source DESC
 ;
 
 -- Step 4: Checking traffic_medium OK
 
-SELECT traffic_medium, COUNT(*) AS total_rows
+SELECT traffic_medium, COUNT(*) AS total_missing_traffic_medium
 FROM `marketing-464513.Training.Acquisition_copy_duplicata`
 WHERE traffic_medium IS NULL 
 GROUP BY traffic_medium
-ORDER BY total_rows DESC
+ORDER BY total_missing_traffic_medium DESC
 ;
 
 -- Step 5: Checking campaign_name OK
 
-SELECT campaign_name, COUNT(*) AS total_rows
+SELECT campaign_name, COUNT(*) AS total_missing_campaign_name
 FROM `marketing-464513.Training.Acquisition_copy_duplicata`
 WHERE campaign_name IS NULL 
 GROUP BY campaign_name
-ORDER BY total_rows DESC
+ORDER BY total_missing_campaign_name DESC
 ;
 
 -- Step 6: Checking country_geo OK
 
-SELECT country_geo, COUNT(*) AS total_rows
+SELECT country_geo, COUNT(*) AS total_missing_country_geo
 FROM `marketing-464513.Training.Acquisition_copy_duplicata`
 WHERE country_geo IS NULL 
 GROUP BY country_geo
-ORDER BY total_rows DESC
+ORDER BY total_missing_country_geo DESC
 ;
 
 -- Step 7: Checking device_category OK
 
-SELECT device_category, COUNT(*) AS total_rows
+SELECT device_category, COUNT(*) AS total_missing_device_category
 FROM `marketing-464513.Training.Acquisition_copy_duplicata`
 WHERE device_category IS NULL 
 GROUP BY device_category
-ORDER BY total_rows DESC
+ORDER BY total_missing_device_category DESC
 ;
 
 -- Step 8: Checking ad_impressions 32 NULL OK
 
-SELECT ad_impressions, COUNT(*) AS total_rows
+SELECT ad_impressions, COUNT(*) AS total_missing_ad_impressions
 FROM `marketing-464513.Training.Acquisition_copy_duplicata`
 WHERE ad_impressions IS NULL
 GROUP BY ad_impressions
-ORDER BY total_rows DESC
+ORDER BY total_missing_ad_impressions DESC
 ;
 
 -- Step 9: Checking ad_clicks 6 NULL OK
 
-SELECT ad_clicks, COUNT(*) AS total_rows
+SELECT ad_clicks, COUNT(*) AS total_missing_ad_clicks
 FROM `marketing-464513.Training.Acquisition_copy_duplicata`
 WHERE ad_clicks IS NULL 
 GROUP BY ad_clicks
-ORDER BY total_rows DESC
+ORDER BY total_missing_ad_clicks DESC
 ;
 
 -- Step 10: Checking ad_spend OK
 
-SELECT ad_spend, COUNT(*) AS total_rows
+SELECT ad_spend, COUNT(*) AS total_missing_ad_spend
 FROM `marketing-464513.Training.Acquisition_copy_duplicata`
 WHERE ad_spend IS NULL 
 GROUP BY ad_spend
-ORDER BY total_rows DESC
+ORDER BY total_missing_ad_spend DESC
 ;
 
 -- Step 11: Fill in campaign_name with No ads

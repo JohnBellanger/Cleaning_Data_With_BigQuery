@@ -458,6 +458,7 @@ ORDER BY total_missing_date DESC
 SELECT session_id, COUNT(*) AS total_missing_session_id
 FROM `marketing-464513.Training.Acquisition_copy_duplicata`
 WHERE session_id IS NULL 
+   OR session_id = ''
 GROUP BY session_id
 ORDER BY total_missing_session_id DESC
 ;
@@ -467,6 +468,7 @@ ORDER BY total_missing_session_id DESC
 SELECT traffic_source, COUNT(*) AS total_missing_traffic_source
 FROM `marketing-464513.Training.Acquisition_copy_duplicata`
 WHERE traffic_source IS NULL 
+   OR traffic_source = ''
 GROUP BY traffic_source
 ORDER BY total_missing_traffic_source DESC
 ;
@@ -476,6 +478,7 @@ ORDER BY total_missing_traffic_source DESC
 SELECT traffic_medium, COUNT(*) AS total_missing_traffic_medium
 FROM `marketing-464513.Training.Acquisition_copy_duplicata`
 WHERE traffic_medium IS NULL 
+   OR traffic_medium = ''
 GROUP BY traffic_medium
 ORDER BY total_missing_traffic_medium DESC
 ;
@@ -485,6 +488,7 @@ ORDER BY total_missing_traffic_medium DESC
 SELECT campaign_name, COUNT(*) AS total_missing_campaign_name
 FROM `marketing-464513.Training.Acquisition_copy_duplicata`
 WHERE campaign_name IS NULL 
+   OR campaign_name = ''
 GROUP BY campaign_name
 ORDER BY total_missing_campaign_name DESC
 ;
@@ -494,6 +498,7 @@ ORDER BY total_missing_campaign_name DESC
 SELECT country_geo, COUNT(*) AS total_missing_country_geo
 FROM `marketing-464513.Training.Acquisition_copy_duplicata`
 WHERE country_geo IS NULL 
+   OR country_geo = ''
 GROUP BY country_geo
 ORDER BY total_missing_country_geo DESC
 ;
@@ -503,6 +508,7 @@ ORDER BY total_missing_country_geo DESC
 SELECT device_category, COUNT(*) AS total_missing_device_category
 FROM `marketing-464513.Training.Acquisition_copy_duplicata`
 WHERE device_category IS NULL 
+   OR device_category = ''
 GROUP BY device_category
 ORDER BY total_missing_device_category DESC
 ;
@@ -512,6 +518,7 @@ ORDER BY total_missing_device_category DESC
 SELECT ad_impressions, COUNT(*) AS total_missing_ad_impressions
 FROM `marketing-464513.Training.Acquisition_copy_duplicata`
 WHERE ad_impressions IS NULL
+   OR CAST(ad_impressions AS STRING) = ''
 GROUP BY ad_impressions
 ORDER BY total_missing_ad_impressions DESC
 ;
@@ -521,6 +528,7 @@ ORDER BY total_missing_ad_impressions DESC
 SELECT ad_clicks, COUNT(*) AS total_missing_ad_clicks
 FROM `marketing-464513.Training.Acquisition_copy_duplicata`
 WHERE ad_clicks IS NULL 
+   OR CAST(ad_clicks AS STRING) = ''
 GROUP BY ad_clicks
 ORDER BY total_missing_ad_clicks DESC
 ;
@@ -530,6 +538,7 @@ ORDER BY total_missing_ad_clicks DESC
 SELECT ad_spend, COUNT(*) AS total_missing_ad_spend
 FROM `marketing-464513.Training.Acquisition_copy_duplicata`
 WHERE ad_spend IS NULL 
+   OR CAST(ad_spend AS STRING) = ''
 GROUP BY ad_spend
 ORDER BY total_missing_ad_spend DESC
 ;

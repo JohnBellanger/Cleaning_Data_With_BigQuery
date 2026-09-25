@@ -106,9 +106,10 @@ FROM `marketing-464513.Training.Acquisition_copy_duplicata`
 
 -- Step 1: Find all formate date
 
-SELECT DISTINCT(raw_date)
-FROM `marketing-464513.Training.Acquisition_copy_duplicata`
-;
+ SELECT raw_date
+ FROM `marketing-464513.Training.Transaction`
+ WHERE NOT REGEXP_CONTAINS(raw_date, r'^[0-9]{4}-[0-9]{2}-[0-9]{2}$')
+ ;
 
 -- Step 2: Modify format date
 
@@ -134,10 +135,11 @@ SELECT
 FROM `marketing-464513.Training.Acquisition_copy_duplicata`
  ;
 
--- Step 3: Checking
+-- Step 3: Checking missing format date
 
 SELECT date
 FROM `marketing-464513.Training.Acquisition_copy_duplicata`
+WHERE NOT REGEXP_CONTAINS(CAST(date AS STRING), r'^[0-9]{4}-[0-9]{2}-[0-9]{2}$')
 ;
 
 -- Phase 4: Standardization Name

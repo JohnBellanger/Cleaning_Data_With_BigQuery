@@ -448,9 +448,11 @@ CREATE OR REPLACE TABLE `marketing-464513.Training.Acquisition_copy_duplicata` A
 SELECT date, COUNT(*) AS  total_rows
 FROM `marketing-464513.Training.Acquisition_copy_duplicata`
 WHERE date IS NULL 
+OR CAST(date AS STRING) = ''
 GROUP BY date
 ORDER BY total_rows DESC
 ;
+
 
 -- Step 2: Checking session_id OK
 

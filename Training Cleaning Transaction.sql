@@ -680,11 +680,37 @@ SELECT
 
 -- Phase 9 - Export Flat Table
 
--- Step 1: Checking Flat Table before exporting
+-- Step 1: Checking final Flat Table before exporting
+
+CREATE OR REPLACE TABLE `marketing-464513.Training.Transaction_duplicata_copy_flat_table_2` AS
+
+    SELECT
+    date,
+    order_id,
+    session_id,
+    customer_id,
+    payment_status,
+    product_sku,
+    sku_category,
+    quantity,
+    gross_revenue,
+    discount_applied,
+    ROUND(refund_amount,2) AS refund_amount,
+    traffic_source,
+    traffic_medium,
+    campaign_name,
+    country_geo,
+    device_category,
+    ad_impressions,
+    ad_clicks,
+    ad_spend
+  FROM `marketing-464513.Training.Transaction_duplicata_copy_flat_table_2`
+  ;
 
   SELECT *
   FROM `marketing-464513.Training.Transaction_duplicata_copy_flat_table_2`
-;
+  ;
+
 -- Step 2: Export Flat Table for analysis with R Programming library
 
 

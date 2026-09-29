@@ -46,10 +46,10 @@ ORDER BY number ASC
 
 # Phase 3: Standardization of Date
 
-SELECT DISTINCT(Date)
+SELECT date
 FROM `marketing-464513.Finance.Sales_Backup_2`
+WHERE NOT REGEXP_CONTAINS(raw_order_date, r'^[0-9]{4}-[0-9]{2}-[0-9]{2}$')
 ;
-
 
 # Modify date
 
@@ -57,7 +57,10 @@ CREATE OR REPLACE TABLE `marketing-464513.Finance.Sales_Backup_2` AS
 
 SELECT 
         Transaction_ID,
-        Parse_date('%Y-%m-%d',Date) AS Date,
+        COALESCE(
+        SAFE.Parse_date('%Y-%m-%d',Date),
+        SAFE.Parse_date('%m/%d/%Y',Date) 
+        )AS Date,
         Traffic_Source, 
         Product_Category,
         Revenue,
@@ -65,28 +68,14 @@ SELECT
         Review_Text,
         Review_Sentiment
 FROM `marketing-464513.Finance.Sales_Backup_2`
-WHERE SAFE.Parse_date('%Y-%m-%d',Date) IS NOT NULL
-
-UNION ALL
-
-SELECT 
-        Transaction_ID,
-        Parse_date('%m/%d/%Y',Date) AS Date,
-        Traffic_Source, 
-        Product_Category,
-        Revenue,
-        Refund_Amount,
-        Review_Text,
-        Review_Sentiment
-FROM `marketing-464513.Finance.Sales_Backup_2`
-WHERE SAFE.Parse_date('%Y-%m-%d',Date) IS NOT NULL AND SAFE.Parse_date('%Y-%m-%d',Date) IS NULL
 ;
 
 
 # Check table
 
-Select *
+SELECT date
 FROM `marketing-464513.Finance.Sales_Backup_2`
+WHERE NOT REGEXP_CONTAINS(CAST(date AS STRING), r'^[0-9]{4}-[0-9]{2}-[0-9]{2}$')
 ;
 
 # Phase 4: Standardization of names

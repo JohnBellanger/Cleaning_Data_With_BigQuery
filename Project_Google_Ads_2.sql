@@ -51,9 +51,10 @@ WHERE Row_num >1;
 -- Phase 2: Standardization 
 -- Step 1: Standardization of date
 
-SELECT distinct(transaction_date)
+SELECT date
 FROM `marketing-464513.Google_Ads.Google_Analytics_Copy`
-;
+WHERE NOT REGEXP_CONTAINS(raw_order_date, r'^[0-9]{4}-[0-9]{2}-[0-9]{2}$')
+       ;
 
 -- Modifying date format
 
@@ -67,14 +68,16 @@ SELECT transaction_id,
        payment_method,
               COALESCE(
                       SAFE.PARSE_DATE('%Y-%m-%d', transaction_date),
-                      SAFE.PARSE_DATE('%d/%m/%Y', transaction_date)) AS transaction_date
+                      SAFE.PARSE_DATE('%d/%m/%Y', transaction_date)
+                       ) AS transaction_date
 FROM `marketing-464513.Google_Ads.Google_Analytics_Copy`)
-;
+       ;
 
 -- Checking the dataset
 
-SELECT *
-FROM `marketing-464513.Google_Ads.Google_Analytics_Copy`
+SELECT date
+FROM `marketing-464513.Google_Ads.Google_Analytics_Copy`)
+WHERE NOT REGEXP_CONTAINS(CAST(date AS STRING), r'^[0-9]{4}-[0-9]{2}-[0-9]{2}$')
 ;
 
 -- Step 2: Standardization of all Names
@@ -202,7 +205,6 @@ FROM `marketing-464513.Google_Ads.Google_Analytics_Copy`
 
 SELECT *
 FROM `marketing-464513.Google_Ads.Google_Analytics_Copy`
-
 ORDER BY session_id
 ;
 

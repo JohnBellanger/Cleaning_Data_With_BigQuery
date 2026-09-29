@@ -87,59 +87,41 @@ FROM `marketing-464513.Finance.Marketing_Duplicata`
 
 # Phase 2: Standardization of date
 
-SELECT distinct(Date)
+SELECT date
 FROM `marketing-464513.Finance.Marketing_Duplicata`
+WHERE NOT REGEXP_CONTAINS(raw_order_date, r'^[0-9]{4}-[0-9]{2}-[0-9]{2}$')
 ;
 
 
 Create OR REPLACE TABLE `marketing-464513.Finance.Marketing_Duplicata` AS 
 
 Select 
-        Parse_date('%Y-%m-%d', date) AS Date,
+       COALESCE(
+        SAFE.Parse_date('%Y-%m-%d', date),
+        SAFE.Parse_date('%d/%m/%Y', date),
+        SAFE.Parse_date('%b %d %Y', date),
+        ) AS Date,
         Marketing_Source,
         Campaign_Name,
         Ad_Spend,
         Impressions,
         Clicks
 FROM  `marketing-464513.Finance.Marketing_Duplicata`
-WHERE Safe.Parse_date('%Y-%m-%d', date) IS NOT NULL
-
-UNION ALL
-
-SELECT 
-        PARSE_DATE('%d/%m/%Y', date) AS Date,
-        Marketing_Source,
-        Campaign_Name,
-        Ad_Spend,
-        Impressions,
-        Clicks
-FROM  `marketing-464513.Finance.Marketing_Duplicata`
-WHERE Safe.Parse_date('%d/%m/%Y', date) IS NOT NULL AND Safe.Parse_date('%Y-%m-%d', date) IS NULL
-
-UNION ALL
-
-SELECT 
-        PARSE_DATE('%b %d %Y', date) AS Date,
-        Marketing_Source,
-        Campaign_Name,
-        Ad_Spend,
-        Impressions,
-        Clicks
-FROM  `marketing-464513.Finance.Marketing_Duplicata`
-WHERE safe.parse_date('%b %d %Y', date)IS NOT NULL AND safe.parse_date('%d/%m/%Y', date) IS NULL
 ;
 
 # Check Table
 
-SELECT *
+SELECT date
 FROM `marketing-464513.Finance.Marketing_Duplicata`
+WHERE NOT REGEXP_CONTAINS(CAST(date AS STRING), r'^[0-9]{4}-[0-9]{2}-[0-9]{2}$')
 ;
 
 # Phase 3: Standardization of name 
 # Step 1: Checking names for Marketing_Source
+ 
 SELECT DISTINCT(Marketing_Source)
 FROM `marketing-464513.Finance.Marketing_Duplicata`
-
+;
 
 # Step 2: Changing names for Marketing_Source
 
@@ -159,7 +141,7 @@ SELECT
 FROM `marketing-464513.Finance.Marketing_Duplicata`
 ;
 
-# Change FaceBook Ads because LOWER, UPPER or INITCAP don't work
+# Change FaceBook Ads because LOWER, UPPER or INITCAP dont work
 
 UPDATE `marketing-464513.Finance.Marketing_Duplicata`
 SET Marketing_Source = 'Facebook Ads'
@@ -185,7 +167,7 @@ SELECT DISTINCT(Campaign_Name) #ok
 FROM `marketing-464513.Finance.Marketing_Duplicata`
 WHERE  Campaign_Name LIKE '%Gift%'
 
-SELECT DISTINCT(Campaign_Name) # I don't touch ok
+SELECT DISTINCT(Campaign_Name) # I dont touch ok
 FROM `marketing-464513.Finance.Marketing_Duplicata`
 WHERE  Campaign_Name LIKE '%Last%'
 
@@ -297,7 +279,7 @@ FROM `marketing-464513.Finance.Marketing_Duplicata`
 WHERE Ad_Spend IS Null 
 ;
 
-# I'm going to replace Null by 0.00
+# Im going to replace Null by 0.00
 UPDATE `marketing-464513.Finance.Marketing_Duplicata`
 SET Ad_Spend = 0.00
 WHERE Ad_Spend IS NULL

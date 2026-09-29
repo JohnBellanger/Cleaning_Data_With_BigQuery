@@ -41,8 +41,9 @@ FROM `marketing-464513.Google_Ads.Google_Ads_copy` ;
 
 -- column date: I'm going to check all the different format there are in order to format that way YYYY-MM_DD
 
-Select distinct(date)
-FROM `marketing-464513.Google_Ads.Google_Ads_copy` ;
+SELECT date
+FROM `marketing-464513.Google_Ads.Google_Ads_copy`
+WHERE NOT REGEXP_CONTAINS(raw_order_date, r'^[0-9]{4}-[0-9]{2}-[0-9]{2}$') ;
 
 -- Now I modify the format
 
@@ -51,7 +52,8 @@ SELECT
   session_id,
   COALESCE( SAFE.PARSE_DATE('%Y-%m-%d', date), 
             SAFE.PARSE_DATE('%d/%m/%Y', date), 
-            SAFE.PARSE_DATE('%Y %m, %d', date)) AS date,
+            SAFE.PARSE_DATE('%Y %m, %d', date)
+            ) AS date,
             source_medium, 
         campaign_name, 
         ad_spend, 
@@ -60,12 +62,13 @@ SELECT
         device_category, 
         country,      
         useless_column_1
-FROM`marketing-464513`.`Google_Ads`.`Google_Ads_copy`);
+FROM`marketing-464513`.`Google_Ads`.`Google_Ads_copy`;
 
 -- Checking data
 
-Select *
-FROM `marketing-464513.Google_Ads.Google_Ads_copy` ;
+SELECT date
+FROM `marketing-464513`.`Google_Ads`.`Google_Ads_copy`
+WHERE NOT REGEXP_CONTAINS(CAST(date AS STRING), r'^[0-9]{4}-[0-9]{2}-[0-9]{2}$') ;
 
 
 -- Check all names
@@ -304,7 +307,7 @@ UPDATE `marketing-464513.Google_Ads.Google_Ads_copy` -- They don't need campaign
  SET ad_spend = 750.00
  WHERE campaign_name = 'BlackFriday_2023';
 
- SELECT *
+SELECT *
 FROM`marketing-464513.Google_Ads.Google_Ads_copy` -- Columns from impressions to useless_column_1 ( No Null)
 WHERE country IS NULL;
 

@@ -100,39 +100,35 @@ WHERE session_source_medium = 'facebook / cpc' AND city = 'New York'
 ;
 
 -- Step 9: Standardization of dates
+-- Looking for different format
 
-CREATE OR REPLACE TABLE `marketing-464513.ECommerce.Google_Analytics_4_copy_Backup` AS
-SELECT
-      PARSE_DATE('%Y-%m-%d',date) AS date,
-      session_source_medium, 
-      sessions, 
-      conversions_ga4, 
-      total_revenue, 
-      country, 
-      city
+SELECT date
 FROM `marketing-464513.ECommerce.Google_Analytics_4_copy_Backup`
-WHERE SAFE.PARSE_DATE('%Y-%m-%d',date) IS NOT NULL
-
-UNION ALL
-
-SELECT
-      PARSE_DATE('%d/%m-%Y',date) AS date,
-      session_source_medium, 
-      sessions, 
-      conversions_ga4, 
-      total_revenue, 
-      country, 
-      city
-FROM `marketing-464513.ECommerce.Google_Analytics_4_copy_Backup`
-WHERE SAFE.PARSE_DATE('%d/%m-%Y',date) IS NOT NULL 
- AND  SAFE.PARSE_DATE('%Y-%m-%d',date) IS NULL
+WHERE NOT REGEXP_CONTAINS(raw_order_date, r'^[0-9]{4}-[0-9]{2}-[0-9]{2}$')
 ;
 
+-- modifify format
+CREATE OR REPLACE TABLE `marketing-464513.ECommerce.Google_Analytics_4_copy_Backup` AS
+ 
+SELECT
+      COALESCE(
+                SAFE.PARSE_DATE('%Y-%m-%d',date),
+                SAFE.PARSE_DATE('%d/%m-%Y',date)
+                )AS date,
+                session_source_medium, 
+                sessions, 
+                conversions_ga4, 
+                total_revenue, 
+                country, 
+                city
+FROM `marketing-464513.ECommerce.Google_Analytics_4_copy_Backup`
+;
 
 -- Step 10: Checking result
 
-SELECT *
+SELECT date
 FROM `marketing-464513.ECommerce.Google_Analytics_4_copy_Backup`
+WHERE NOT REGEXP_CONTAINS(CAST(date AS STRING), r'^[0-9]{4}-[0-9]{2}-[0-9]{2}$')
 ;
 
 -- Step 11: Standardization of names with one query
@@ -200,7 +196,7 @@ FROM `marketing-464513`.`ECommerce`.`Google_Analytics_4_copy_Backup`;
 -- Found where are the NULL / Blank
 SELECT * -- Nothing
 FROM `marketing-464513`.`ECommerce`.`Google_Analytics_4_copy_Backup`
-WHERE date IS NULL OR date = '';
+WHERE date IS NULL OR CAST(date AS STRING) = '';
 
 SELECT * -- Nothing
 FROM `marketing-464513`.`ECommerce`.`Google_Analytics_4_copy_Backup`
